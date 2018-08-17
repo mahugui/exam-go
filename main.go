@@ -1,7 +1,8 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
+	"os"
 	"time"
 	"net/http"
 
@@ -18,8 +19,10 @@ func main()  {
 
 	routersInit := routers.InitRouter()
 
+        port := os.Getenv("PORT")
+        fmt.Println(port)
 	s := &http.Server{
-		Addr: ":8080",
+		Addr: fmt.Sprintf(":%s", port),
 		Handler: routersInit,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
