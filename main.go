@@ -19,8 +19,8 @@ func main()  {
 
 	routersInit := routers.InitRouter()
 
-        port := os.Getenv("PORT")
-        fmt.Println(port)
+	port := os.Getenv("PORT")
+	fmt.Println(port)
 	s := &http.Server{
 		Addr: fmt.Sprintf(":%s", port),
 		Handler: routersInit,

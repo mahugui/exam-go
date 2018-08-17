@@ -11,7 +11,6 @@ var StudentQuestionKey = "%d:%d:%s"
 
 func GetQuestionListFromPaper(key string, start int, end int) ([][]byte, error) {
 	conn := RedisConn[examConnKey].Get()
-	defer conn.Close()
 
 	result, err := redis.ByteSlices(conn.Do("lrange", key, start, end))
 	if err != nil{
@@ -23,7 +22,6 @@ func GetQuestionListFromPaper(key string, start int, end int) ([][]byte, error) 
 
 func GetStudentAnswerQuestion(userId int, examId string, paperKey string) ([][]byte, error) {
 	conn := RedisConn[connKey].Get()
-	defer conn.Close()
 
 	result, err := redis.ByteSlices(conn.Do("hkeys", fmt.Sprintf(StudentQuestionKey,
 		userId, examId, paperKey)))
@@ -35,7 +33,6 @@ func GetStudentAnswerQuestion(userId int, examId string, paperKey string) ([][]b
 
 func SetStudentInfo(userId int, examId string, productId int, studentInfo interface{}) bool {
 	conn := RedisConn[connKey].Get()
-	defer conn.Close()
 
 	studentInfo, err := json.Marshal(studentInfo)
 	if err != nil{
